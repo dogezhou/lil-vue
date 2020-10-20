@@ -1,3 +1,7 @@
-const p = document.createElement("p", )
-p.innerText ='Hello World'
-document.body.appendChild(p)
+import './proxy-demo'
+
+const __main = () => {
+    console.log('main')
+}
+
+__main()

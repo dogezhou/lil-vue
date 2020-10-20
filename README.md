@@ -1,15 +1,12 @@
-# 🚀 Welcome to your new awesome project!
+# 🚀 A Vue3 like MVVM library
 
-This project has been created using **webpack scaffold**, you can now run
+This project recreates Vue3 composition-api and implements a simple MVVM pattern.
 
+## Getting start
 ```
-npm run build
-```
-
-or
-
-```
-yarn build
+git clone https://github.com/dogezhou/lil-vue.git
+cd <project_name>
+yarn
+yarn dev
 ```
 
-to bundle your application
