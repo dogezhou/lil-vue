@@ -1,6 +1,8 @@
 /**
  * implement vue runtime-core function: ref, reactive, watch, computed
  */
+import { debounce } from "./utils";
+
 const watchers: Array<() => any> = []
 const watch = (callback: () => any) => {
     callback()  // In Vue 3.0, watchers are fired immediately after component mount.
