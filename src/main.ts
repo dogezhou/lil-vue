@@ -1,4 +1,4 @@
-import './proxy-demo'
+// import './proxy-demo'
 
 const __main = () => {
     console.log('main')
