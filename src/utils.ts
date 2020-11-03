@@ -9,9 +9,9 @@ const debounce = function (fn: () => any, delay: number) {
         }
         const ctx = this
         const args = arguments
-        timer = setTimeout(function () {
+        timer = window.setTimeout(function () {
             fn.apply(ctx, args)
-        })
+        }, delay)
     }
 }
 
