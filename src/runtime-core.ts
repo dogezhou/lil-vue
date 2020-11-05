@@ -63,7 +63,25 @@ const reactive = <T extends object>(target: T): T => {
     })
 }
 
+interface Ref<T> {
+    value: T
+}
+
+const ref = <T>(value: T): Ref<T> => {
+    return reactive({ value })
+}
+
+const computed = <T>(fn: () => T): Ref<T>=> {
+    const r = ref<T>(undefined)
+    watch(() => {
+        r.value = fn()
+    })
+    return r
+}
+
 export {
     watch,
     reactive,
+    ref,
+    computed,
 }
