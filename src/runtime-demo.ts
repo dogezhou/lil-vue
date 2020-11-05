@@ -1,4 +1,4 @@
-import { reactive, watch } from './runtime-core'
+import { reactive, watch, ref, computed } from './runtime-core'
 
 
 export const consoleCarMoving = () => {
@@ -80,4 +80,29 @@ export const testWatcherDependencyChange = () => {
      * 因为只在 watcher 第一次运行时添加依赖，而 <code>console.log(`r2.x: ${r2.x}`)</code> 第一次并不会运行
      * 需要修改在每一次 watcher 运行时修改依赖
      */
+}
+
+export const testRef = () => {
+    const r1 = ref(1)
+    setInterval(() => {
+        r1.value++
+    }, 1000)
+
+    watch(() => {
+        console.log(`r1.value: ${r1.value}`)
+    })
+}
+
+export const testComputed = () => {
+    const r1 = ref(1)
+    setInterval(() => {
+        r1.value++
+    }, 1000)
+
+    const hahaR1 = computed(() => {
+        return `haha ${r1.value}`
+    })
+    setInterval(() => {
+        console.log(`hahaR1: ${hahaR1.value}`)
+    }, 1000)
 }
