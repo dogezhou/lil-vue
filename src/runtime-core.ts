@@ -9,6 +9,7 @@ const watch = (callback: () => any) => {
     watchers.push(debounce(callback, 0))
 }
 
+// 添加泛型（extends object 约束 T 是 object)，使用时也可以不手动指定，让类型推导自动推算
 const reactive = <T extends object>(target: T): T => {
     return new Proxy(target, {
         get(target, key: keyof T) {

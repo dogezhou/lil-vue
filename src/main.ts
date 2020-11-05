@@ -1,7 +1,7 @@
-import './runtime-demo'
+import { testDependencyTracking } from './runtime-demo'
 
 const __main = () => {
-    console.log('main')
+    testDependencyTracking()
 }
 
 __main()

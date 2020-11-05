@@ -1,9 +1,10 @@
 import { reactive, watch } from './runtime-core'
 
-// use modulo to make car moving in a loop
-const mod = (x: number, y: number) => ((x % y) + y) % y
 
-const main = () => {
+export const consoleCarMoving = () => {
+    // use modulo to make car moving in a loop
+    const mod = (x: number, y: number) => ((x % y) + y) % y
+
     const MAX_ROAD_LENGTH = 10
 
     const cars = [
@@ -36,4 +37,23 @@ const main = () => {
     })
 }
 
-main()
+export const testDependencyTracking = () => {
+    const r1 = reactive({ x: 0})
+    const r2 = reactive({ x: 0})
+
+    setInterval(() => {
+        r1.x++
+    }, 1000)
+
+    setInterval(() => {
+        r2.x--
+    }, 6000)
+
+    watch(() => {
+        console.log(`r1.x: ${r1.x}`)
+    })
+
+    watch(() => {
+        console.log(`r2.x: ${r2.x}`)
+    })
+}
