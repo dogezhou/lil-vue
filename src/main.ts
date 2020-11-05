@@ -1,7 +1,7 @@
-import { testDependencyTracking } from './runtime-demo'
+import { testWatcherDependencyChange } from './runtime-demo'
 
 const __main = () => {
-    testDependencyTracking()
+    testWatcherDependencyChange()
 }
 
 __main()

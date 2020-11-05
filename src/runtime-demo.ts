@@ -57,3 +57,27 @@ export const testDependencyTracking = () => {
         console.log(`r2.x: ${r2.x}`)
     })
 }
+
+export const testWatcherDependencyChange = () => {
+    const r1 = reactive({ isReady: false })
+    const r2 = reactive({ x: 1 })
+
+    setTimeout(() => {
+        r1.isReady = true
+    }, 1000)
+
+    setInterval(() => {
+        r2.x++
+    }, 500)
+
+    watch(() => {
+        if (!r1.isReady) return
+        console.log(`r2.x: ${r2.x}`)
+    })
+
+    /**
+     * result: r2.x: 3
+     * 因为只在 watcher 第一次运行时添加依赖，而 <code>console.log(`r2.x: ${r2.x}`)</code> 第一次并不会运行
+     * 需要修改在每一次 watcher 运行时修改依赖
+     */
+}
