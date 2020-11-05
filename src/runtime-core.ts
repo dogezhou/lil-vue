@@ -16,15 +16,19 @@ const watchers: Array<{
 }> = []
 
 const watch = (callback: () => any) => {
-    // 1. 先清空依赖收集器
-    dependencyTracker.clear()
-    // 2. 运行一次 watch callback，触发 reactive getter，在 getter 中填充依赖收集器
-    callback()  // In Vue 3.0, watchers are fired immediately after component mount.
-    watchers.push({
-        callback: debounce(callback, 0),
-        // 4. 保存 watcher 的依赖
-        dependencies: new Set(dependencyTracker)
-    })
+    const watcher = {
+        callback: debounce(() => {
+            // 1. 先清空依赖收集器
+            dependencyTracker.clear()
+            // 2. 运行一次 watch callback，触发 reactive getter，在 getter 中填充依赖收集器
+            callback()
+            // 4. 保存 watcher 的依赖
+            watcher.dependencies = new Set(dependencyTracker)
+        }, 0),
+        dependencies: new Set<symbol>()
+    }
+    watcher.callback() // In Vue 3.0, watchers are fired immediately after component mount.
+    watchers.push(watcher)
 }
 
 // 添加泛型（extends object 约束 T 是 object)，使用时也可以不手动指定，让类型推导自动推算

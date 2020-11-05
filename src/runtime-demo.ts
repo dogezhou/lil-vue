@@ -64,7 +64,7 @@ export const testWatcherDependencyChange = () => {
 
     setTimeout(() => {
         r1.isReady = true
-    }, 1000)
+    }, 5000)
 
     setInterval(() => {
         r2.x++
