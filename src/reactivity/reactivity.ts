@@ -1,5 +1,5 @@
 /**
- * implement vue runtime-core function: ref, reactive, watch, computed
+ * implement vue reactivity function: ref, reactive, watch, computed
  */
 import { debounce } from "../utils";
 
