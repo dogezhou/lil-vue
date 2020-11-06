@@ -1,7 +1,7 @@
 /**
  * implement vue runtime-core function: ref, reactive, watch, computed
  */
-import { debounce } from "./utils";
+import { debounce } from "../utils";
 
 // 依赖收集器
 const dependencyTracker = new Set<symbol>()

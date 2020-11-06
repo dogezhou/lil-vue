@@ -1,7 +1,7 @@
-import { testComputed } from './runtime-demo'
+import { testLilVue } from './lil-vue/lil-vue.spec'
 
 const __main = () => {
-    testComputed()
+    testLilVue()
 }
 
 __main()
