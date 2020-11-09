@@ -11,5 +11,4 @@ interface LiLVueOptions {
 export default class LilVue {
     constructor(public options: LiLVueOptions) {
     }
-
 }
