@@ -4,26 +4,65 @@
 import LilVue from "../lil-vue/lil-vue";
 
 class Compiler {
-    private el: string | HTMLElement
+    private readonly el: string | HTMLElement
 
     constructor(el: string | HTMLElement, private vm: LilVue) {
-        if (el instanceof HTMLElement) {
-            if (Compiler.isElementNode(el)) {
+        if (el instanceof HTMLElement && Compiler.isElementNode(el)) {
                 this.el = el
-            } else {
-                throw Error('el参数为字符串或者 dom 元素')
-            }
         } else if (typeof el === "string") {
             this.el = document.querySelector<HTMLElement>(el)
+        } else {
+            throw new Error('Pass a string or HTMLElement to el')
         }
+        const fragment = Compiler.nodeToFragment(this.el)
+        this.compile(fragment)
+        this.el.appendChild(fragment)
     }
 
-    // 是否为 html 元素节点
-    private static isElementNode(node: HTMLElement) {
+    /**
+     * Is node a Node.ELEMENT_NODE, such as: <p> <div>
+     * https://developer.mozilla.org/zh-CN/docs/Web/API/Node/nodeType
+     */
+    static isElementNode(node: Node) {
         return node.nodeType === 1;
     }
 
-    compile(node: HTMLElement) {
+    /**
+     * Convert HTMLElement to DocumentFragment
+     * https://developer.mozilla.org/zh-CN/docs/Web/API/DocumentFragment
+     */
+    static nodeToFragment(node: HTMLElement) {
+        const fragment = document.createDocumentFragment()
+        let firstChild = node.firstChild
+        while (firstChild) {
+            fragment.appendChild(firstChild)
+            firstChild = node.firstChild
+        }
+        return fragment
+    }
 
+    /**
+     * Compile the template - entry function
+     */
+    compile(node: DocumentFragment | Node) {
+        const childNodes = node.childNodes
+        childNodes.forEach(child => {
+            if (Compiler.isElementNode(child)) {
+                this.compile(child)
+            } else {
+                this.compileText(child)
+            }
+        })
+    }
+
+    /**
+     *  Compile the text node, such as: 'Hello {{name}}'
+     */
+    compileText(node: Node) {
+        const content = node.textContent
+        // 匹配 {{}}
+        if (/\{\{(.+?)\}\}/.test(content)) {
+            // TODO: 处理模板花括号语法
+        }
     }
 }
