@@ -1,7 +1,8 @@
 /**
- * compile template and create renderer
+ * Compile template and create renderer
  */
 import LilVue from "../lil-vue/lil-vue";
+import {compileUtil} from "./compile-util";
 
 class Compiler {
     private readonly el: string | HTMLElement
@@ -46,6 +47,7 @@ class Compiler {
      */
     compile(node: DocumentFragment | Node) {
         const childNodes = node.childNodes
+        console.log('compile')
         childNodes.forEach(child => {
             if (Compiler.isElementNode(child)) {
                 this.compile(child)
@@ -60,9 +62,16 @@ class Compiler {
      */
     compileText(node: Node) {
         const content = node.textContent
-        // 匹配 {{}}
+        console.log('content', content)
+        // Match {{}}
         if (/\{\{(.+?)\}\}/.test(content)) {
-            // TODO: 处理模板花括号语法
+            compileUtil.handleText(node, content, this.vm)
         }
     }
+}
+
+
+
+export {
+    Compiler
 }

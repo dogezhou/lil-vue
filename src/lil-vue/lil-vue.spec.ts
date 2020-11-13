@@ -1,10 +1,14 @@
-import LilVue from "./lil-vue";
+import LilVue from "./lil-vue"
+import { ref } from "../reactivity/reactivity"
 
 const testLilVue = () => {
     const app = new LilVue({
         el: '#app',
         setup() {
-            console.log('hello, setup!')
+            const name = ref('Lil-Vue')
+            return {
+                name
+            }
         }
     })
 }
