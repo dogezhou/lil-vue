@@ -47,7 +47,6 @@ class Compiler {
      */
     compile(node: DocumentFragment | Node) {
         const childNodes = node.childNodes
-        console.log('compile')
         childNodes.forEach(child => {
             if (Compiler.isElementNode(child)) {
                 this.compile(child)
@@ -62,7 +61,6 @@ class Compiler {
      */
     compileText(node: Node) {
         const content = node.textContent
-        console.log('content', content)
         // Match {{}}
         if (/\{\{(.+?)\}\}/.test(content)) {
             compileUtil.handleText(node, content, this.vm)

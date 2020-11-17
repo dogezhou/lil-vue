@@ -19,9 +19,7 @@ const compileUtil = {
         const { setupReturned } = vm
         type setupReturnedType = typeof setupReturned
         return expr.split(".").reduce((data, current: keyof setupReturnedType) => {
-            // FIXME: 需要获取 ref 的 value
-            console.log('current', current, setupReturned)
-            return setupReturned[current]
+            return data[current]
         }, setupReturned);
     }
 }
